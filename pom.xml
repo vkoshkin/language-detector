@@ -111,7 +111,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -223,11 +223,12 @@
         <dependency><!-- used for the @NotNull and @Nullable annotations -->
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
+            <version>24.1.0</version>
+        </dependency>
         <dependency><!-- used for the Optional and other things -->
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>19.0</version>
-            <version>24.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
