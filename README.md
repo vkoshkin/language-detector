@@ -8,6 +8,10 @@ Language Detection Library for Java
         <version>0.6</version>
     </dependency>
 
+## Differences in this fork
+
+- Removed Guava from dependencies.
+- Project built on Java 11.
 
 ## Language Support
 
