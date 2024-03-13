@@ -90,7 +90,7 @@ public final class LdLocale {
         Optional<String> script = null;
         Optional<String> region = null;
 
-        List<String> strings = Arrays.asList(string.split("-"));
+        List<String> strings = Arrays.asList(string.split("-", -1));
         for (int i = 0; i < strings.size(); i++) {
             String chunk = strings.get(i);
             if (i == 0) {
