@@ -16,7 +16,6 @@
 
 package com.optimaize.langdetect.profiles;
 
-import com.google.common.collect.ImmutableList;
 import com.optimaize.langdetect.i18n.LdLocale;
 
 import java.util.ArrayList;
@@ -106,7 +105,7 @@ public class BuiltInLanguages {
         names.add(LdLocale.fromString("zh-CN"));
         names.add(LdLocale.fromString("zh-TW"));
 
-        languages = ImmutableList.copyOf(names);
+        languages = List.copyOf(names);
     }
 
     static {
@@ -128,7 +127,7 @@ public class BuiltInLanguages {
         texts.add("sv");
         texts.add("tr");
         texts.add("vi");
-        shortTextLanguages = ImmutableList.copyOf(texts);
+        shortTextLanguages = List.copyOf(texts);
     }
 
     /**

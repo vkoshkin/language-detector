@@ -18,7 +18,6 @@ package com.optimaize.langdetect;
 
 import com.optimaize.langdetect.frma.LangProfileReader;
 import com.optimaize.langdetect.cybozu.util.LangProfile;
-import com.google.common.collect.ImmutableList;
 import com.optimaize.langdetect.ngram.NgramExtractors;
 import com.optimaize.langdetect.profiles.LanguageProfile;
 import com.optimaize.langdetect.profiles.OldLangProfileConverter;
@@ -63,7 +62,7 @@ public class LanguageDetectorImplTest {
             .suffixFactor(2.0);
 
         LangProfileReader langProfileReader = new LangProfileReader();
-        for (String language : ImmutableList.of("en", "fr", "nl", "de")) {
+        for (String language : List.of("en", "fr", "nl", "de")) {
             LangProfile langProfile = langProfileReader.read(LanguageDetectorImplTest.class.getResourceAsStream("/languages/" + language));
             LanguageProfile languageProfile = OldLangProfileConverter.convert(langProfile);
             builder.withProfile(languageProfile);

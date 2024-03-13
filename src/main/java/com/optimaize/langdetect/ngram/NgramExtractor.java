@@ -16,11 +16,15 @@
 
 package com.optimaize.langdetect.ngram;
 
-import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class for extracting n-grams out of a text.
@@ -39,7 +43,7 @@ public class NgramExtractor {
     private final Character textPadding;
 
     public static NgramExtractor gramLength(int gramLength) {
-        return new NgramExtractor(ImmutableList.of(gramLength), null, null);
+        return new NgramExtractor(List.of(gramLength), null, null);
     }
     public static NgramExtractor gramLengths(Integer... gramLength) {
         return new NgramExtractor(Arrays.asList(gramLength), null, null);
@@ -65,7 +69,7 @@ public class NgramExtractor {
 
     private NgramExtractor(@NotNull List<Integer> gramLengths, @Nullable NgramFilter filter, @Nullable Character textPadding) {
         if (gramLengths.isEmpty()) throw new IllegalArgumentException();
-        this.gramLengths = ImmutableList.copyOf(gramLengths);
+        this.gramLengths = List.copyOf(gramLengths);
         this.filter = filter;
         this.textPadding = textPadding;
     }

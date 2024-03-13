@@ -16,9 +16,6 @@
 
 package com.optimaize.langdetect.profiles.util;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
 import com.optimaize.langdetect.DetectedLanguage;
 import com.optimaize.langdetect.LanguageDetector;
 import com.optimaize.langdetect.LanguageDetectorBuilder;
@@ -34,14 +31,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Performs k-fold cross-validation.
  * See https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation
- *
+ * <p>
  * This is meant to be run as a maintenance program, or for debugging. It's not used in production by this library.
  * Use the unit test.
  *
@@ -64,11 +61,12 @@ public class LanguageProfileValidator {
 
     /**
      * Set the k parameter to select into how many parts to partition the original sample. Default is 10.
+     *
      * @param k Minimum: 3
      */
     public LanguageProfileValidator setK(int k) {
-        if( k <= 2 ) {
-            throw new IllegalArgumentException("k hast to be at least 3 but was: "+k);
+        if (k <= 2) {
+            throw new IllegalArgumentException("k hast to be at least 3 but was: " + k);
         }
         this.k = k;
         return this;
@@ -117,6 +115,7 @@ public class LanguageProfileValidator {
     /**
      * Use for languages that don't use whitespaces to denominate word boundaries.
      * Default is false.
+     *
      * @param breakWords set true is you want to break sample into truly equal sizes.
      */
     public LanguageProfileValidator setBreakWords(boolean breakWords) {
@@ -126,20 +125,17 @@ public class LanguageProfileValidator {
 
     /**
      * Remove potential LanguageProfiles, e.g. in combination with {@link #loadAllBuiltInLanguageProfiles()}.
+     *
      * @param isoString the ISO string of the LanguageProfile to be removed.
      */
     public LanguageProfileValidator removeLanguageProfile(final String isoString) {
-        Iterables.removeIf(this.languageProfiles, new Predicate<LanguageProfile>() {
-            @Override
-            public boolean apply(LanguageProfile languageProfile) {
-                return languageProfile.getLocale().getLanguage().equals(isoString);
-            }
-        });
+        languageProfiles.removeIf(languageProfile -> languageProfile.getLocale().getLanguage().equals(isoString));
         return this;
     }
 
     /**
      * Run the n-fold validation.
+     *
      * @return the average probability over all runs.
      */
     public double validate() {
@@ -174,17 +170,16 @@ public class LanguageProfileValidator {
 
             List<DetectedLanguage> detectedLanguages = languageDetector.getProbabilities(testSample);
 
-            try{
-                DetectedLanguage kResult = Iterables.find(detectedLanguages, new Predicate<DetectedLanguage>() {
-                    public boolean apply(DetectedLanguage language) {
-                        return language.getLocale().getLanguage().equals(languageProfile.getLocale().getLanguage());
-                    }
-                });
-
+            Optional<DetectedLanguage> optionalDetectedLanguage = detectedLanguages
+                    .stream()
+                    .filter(detectedLanguage -> detectedLanguage.getLocale()
+                            .getLanguage().equals(languageProfile.getLocale().getLanguage()))
+                    .findFirst();
+            if (optionalDetectedLanguage.isPresent()) {
+                DetectedLanguage kResult = optionalDetectedLanguage.get();
                 probabilities.add(kResult.getProbability());
                 System.out.println("Probability: " + kResult.getProbability());
-
-            }catch (NoSuchElementException e){
+            } else {
                 System.out.println("No match. Probability: 0");
                 probabilities.add(0D);
             }
@@ -210,8 +205,13 @@ public class LanguageProfileValidator {
             while (m.find())
                 result.add(textObjectFactory.create().append(m.group(1)));
         } else {
-            Splitter splitter = Splitter.fixedLength(this.k);
-            for (String token : splitter.split(this.inputSample.toString())) {
+            String inputSampleString = this.inputSample.toString();
+            final int inputStringLength = inputSampleString.length();
+            int index = 0;
+            while (index < inputStringLength) {
+                int nextIndex = Math.min(index + this.k, inputStringLength);
+                String token = inputSampleString.substring(index, nextIndex);
+                index = nextIndex;
                 result.add(textObjectFactory.create().append(token));
             }
         }

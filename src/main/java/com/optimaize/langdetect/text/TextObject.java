@@ -17,7 +17,6 @@
 package com.optimaize.langdetect.text;
 
 import com.optimaize.langdetect.cybozu.util.CharNormalizer;
-import com.google.common.annotations.Beta;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -45,7 +44,6 @@ import java.io.Reader;
  *
  * @author Fabian Kessler
  */
-@Beta
 public class TextObject implements CharSequence, Appendable {
 
     @NotNull

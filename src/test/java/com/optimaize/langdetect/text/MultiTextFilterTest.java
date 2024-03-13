@@ -16,10 +16,10 @@
 
 package com.optimaize.langdetect.text;
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,7 +35,7 @@ public class MultiTextFilterTest {
 
     @Test
     public void doubleFilter() throws Exception {
-        assertEquals(new MultiTextFilter(ImmutableList.of(
+        assertEquals(new MultiTextFilter(List.of(
                 new TextFilter() {
                     @Override
                     public String filter(CharSequence text) {
