@@ -30,7 +30,7 @@ public class OldNgramExtractorTest {
 
     @Test
     public void testExtractNGrams() {
-        List<String> ngrams = OldNgramExtractor.extractNGrams("Foo bar", null);
+        List<String> ngrams = OldNgramExtractor.extractNGrams("Foo bar");
         assertTrue(ngrams.contains("Foo"));
         assertTrue(ngrams.contains("F"));
         assertTrue(ngrams.contains(" Fo"));  //algorithm makes prefix-grams
@@ -40,7 +40,7 @@ public class OldNgramExtractorTest {
 
     @Test
     public void testExtractNGrams2() {
-        List<String> ngrams = OldNgramExtractor.extractNGrams("Hallo DAA.", null);
+        List<String> ngrams = OldNgramExtractor.extractNGrams("Hallo DAA.");
         System.out.println(ngrams);
     }
 
@@ -51,7 +51,7 @@ public class OldNgramExtractorTest {
         String text = "Foo bar hello world and so on nana nunu dada dudu asdf asdf akewf köjvnawer aisdfj awejfr iajdsöfj ewi adjsköfjwei ajsdökfj ief asd";
         StopWatch stopWatch = StopWatch.createStarted();
         for (int i=0; i<100000; i++) {
-            OldNgramExtractor.extractNGrams(text, null); //2.745s
+            OldNgramExtractor.extractNGrams(text); //2.745s
         }
         System.out.println(stopWatch.getTime());
     }

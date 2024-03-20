@@ -55,7 +55,7 @@ public class Util {
 //        for (String s : ngramExtractor.extractGrams(text)) {
 //            langProfile.add(s);
 //        }
-        for (String s : OldNgramExtractor.extractNGrams(text, null)) {
+        for (String s : OldNgramExtractor.extractNGrams(text)) {
             langProfile.add(s);
         }
     }
