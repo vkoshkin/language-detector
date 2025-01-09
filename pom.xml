@@ -5,7 +5,7 @@
     <groupId>com.optimaize.languagedetector</groupId>
     <artifactId>language-detector</artifactId>
     <name>language-detector</name>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <url>https://github.com/optimaize/language-detector</url>
