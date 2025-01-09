@@ -1,3 +1,9 @@
 /target
 /language-detector.iml
 .idea/
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Thumbs.db
